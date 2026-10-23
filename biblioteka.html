@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biblioteka – Warszawskie Towarzystwo Muzyczne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes wtm-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.main > *{animation:wtm-in .6s cubic-bezier(.22,.61,.36,1) both;animation-delay:.42s}
+.main > *:nth-child(1){animation-delay:0s}
+.main > *:nth-child(2){animation-delay:.07s}
+.main > *:nth-child(3){animation-delay:.14s}
+.main > *:nth-child(4){animation-delay:.21s}
+.main > *:nth-child(5){animation-delay:.28s}
+.main > *:nth-child(6){animation-delay:.35s}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.main > *{animation:none !important}}
+a{color:#111;text-decoration:none}a:hover{text-decoration:underline}
+button{font-family:inherit}
+.mapbg{background-color:#f3efe6;background-image:repeating-linear-gradient(0deg,transparent 0 39px,#e2dccf 39px 40px),repeating-linear-gradient(90deg,transparent 0 39px,#e2dccf 39px 40px)}
+button:focus-visible,a:focus-visible{outline:2px solid #111111;outline-offset:2px}
+@media (max-width:860px){
+.shell{flex-direction:column !important}
+.side{width:auto !important;border-right:0 !important;border-bottom:1px solid var(--line);padding:20px 24px !important}
+.side nav{margin:12px 0 !important}
+.main{padding:24px !important}
+.row{flex-direction:column !important;gap:4px !important}
+.galmain{height:320px !important}
+}
+/* telefony i tablety */
+.nav-toggle{display:none}
+.nav-toggle .i-close{display:none}
+.main a[href^="mailto:"]{overflow-wrap:anywhere}
+.main img{max-width:100%}
+@media (max-width:860px){
+.side{flex-direction:column !important;justify-content:flex-start !important;padding:12px 20px !important}
+.side > div:first-child{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.side > div:first-child > a:first-child img{width:64px !important}
+.nav-toggle{display:inline-flex !important;align-items:center;gap:10px;min-height:44px;padding:0 16px;border:1px solid #111111;background:#ffffff;color:#111111;font:500 14px/1 'Inter',Helvetica,Arial,sans-serif;letter-spacing:.04em;cursor:pointer}
+.side.is-open .nav-toggle .i-menu{display:none}
+.side.is-open .nav-toggle .i-close{display:block}
+.side nav{display:none;width:100%;margin:8px 0 0 !important;border-top:1px solid var(--line)}
+.side.is-open nav{display:block}
+.side nav a{padding:14px 0 !important;border-bottom:1px solid var(--line);font-size:16px !important}
+.side > div:last-child{display:none !important}
+.side.is-open > div:last-child{display:flex !important;align-items:center;justify-content:space-between;padding:6px 0 2px}
+.main{padding:28px 20px 40px !important}
+}
+@media (max-width:860px) and (prefers-reduced-motion:no-preference){.side.is-open nav{animation:wtm-in .25s ease both}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/x-template" id="tpl">
+<div class="shell" style="--line: {{lineColor}}; display: flex; min-height: 1000px; box-sizing: border-box; background: #ffffff; color: #111111; font-family: 'Inter', Helvetica, Arial, sans-serif">
+<aside class="side {{navCls}}" style="width: 200px; flex-shrink: 0; box-sizing: border-box; border-right: 1px solid var(--line); padding: 64px 32px 24px; display: flex; flex-direction: column; justify-content: space-between">
+<div>
+<a href="index.html" aria-label="Warszawskie Towarzystwo Muzyczne – strona główna" style="display: block"><img src="obrazy/logo-wtm.png" alt="Logo WTM – rok założenia 1871" style="display: block; width: 120px; height: auto"></a>
+<button type="button" class="nav-toggle" onClick="{{ toggleNav }}" aria-expanded="{{navExpanded}}" aria-controls="menu-glowne"><svg class="i-menu" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><svg class="i-close" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span>{{navLabel}}</span></button>
+<nav id="menu-glowne" style="margin-top: 36px" aria-label="Menu główne">
+<a href="o-towarzystwie.html" style="display: block; padding: 12px 0; font-size: 15px">O Towarzystwie</a>
+<a href="kalendarz.html" style="display: block; padding: 12px 0; font-size: 15px">Kalendarz</a>
+<a href="historia.html" style="display: block; padding: 12px 0; font-size: 15px">Historia</a>
+<a href="biblioteka.html" aria-current="page" style="display: block; padding: 12px 0; font-size: 15px; font-weight: 500; text-decoration: underline; text-underline-offset: 6px">Biblioteka</a>
+<a href="akademia.html" style="display: block; padding: 12px 0; font-size: 15px">Akademia Warszawskiego Towarzystwa Muzycznego</a>
+<a href="wspolpraca.html" style="display: block; padding: 12px 0; font-size: 15px">Współpraca</a>
+</nav>
+</div>
+<div>
+<div style="display: flex; margin-left: -12px">
+<a href="https://www.facebook.com/warszawskietowarzystwomuzyczne1871/" target="_blank" rel="noopener" aria-label="Facebook – Warszawskie Towarzystwo Muzyczne (otwiera się w nowej karcie)" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13 22v-8h2.7l.5-3.2H13V8.7c0-1 .4-1.7 1.8-1.7h1.5V4.2C16 4.1 15 4 14 4c-2.5 0-4.2 1.5-4.2 4.3v2.5H7V14h2.8v8z"></path></svg></a>
+<a href="#" aria-label="Instagram" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"></rect><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"></circle><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"></circle></svg></a>
+</div>
+<a href="kontakt.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; letter-spacing: 0.04em; font-weight: 500; text-decoration: underline; text-underline-offset: 5px">Kontakt</a>
+</div>
+</aside>
+<main class="main" style="flex: 1; min-width: 0; box-sizing: border-box; padding: 64px 40px 56px 30px">
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: clamp(30px, 4.6vw, 66px); line-height: 1.05; letter-spacing: -0.01em; color: #0d0d0d">BIBLIOTEKA<br></h1>
+<p style="margin: 10px 0 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: clamp(18px, 2vw, 28px); line-height: 1.2">Warszawskiego Towarzystwa Muzycznego</p>
+<nav aria-label="Na tej stronie" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px">
+<a href="#biblioteka" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid #111111; font-size: 13px">Biblioteka</a>
+<a href="#zbiory" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid #111111; font-size: 13px">Zbiory i katalogi</a>
+<a href="#historia-biblioteki" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid #111111; font-size: 13px">Historia biblioteki</a>
+<a href="#zdjecia" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid #111111; font-size: 13px">Zdjęcia</a>
+<a href="#lokalizacja" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid #111111; font-size: 13px">Lokalizacja i kontakt</a>
+</nav>
+
+<section id="biblioteka" style="margin-top: 72px">
+<h2 style="margin: 0 0 18px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 32px">Biblioteka, Archiwum i Muzeum WTM</h2>
+<p style="margin: 0 0 28px; max-width: 760px; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 22px; line-height: 1.45">Gromadzi materiały dokumentujące polską kulturę muzyczną XIX wieku, ze szczególnym uwzględnieniem życia muzycznego Warszawy. Jej początki sięgają 1871 roku, kiedy wraz z Towarzystwem otwarto czytelnię muzyczną.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 24px">
+<div style="padding-top: 14px; border-top: 1px solid #111111"><div style="font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums"><span aria-hidden="true">{{cnt.a}}</span><span class="sr">47 500+</span></div><div style="margin-top: 8px; font-size: 13px; line-height: 1.4">jednostek zbiorów</div></div>
+<div style="padding-top: 14px; border-top: 1px solid #111111"><div style="font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums"><span aria-hidden="true">{{cnt.b}}</span><span class="sr">4 300</span></div><div style="margin-top: 8px; font-size: 13px; line-height: 1.4">rękopisów muzycznych</div></div>
+<div style="padding-top: 14px; border-top: 1px solid #111111"><div style="font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums"><span aria-hidden="true">{{cnt.c}}</span><span class="sr">36 000</span></div><div style="margin-top: 8px; font-size: 13px; line-height: 1.4">druków muzycznych</div></div>
+<div style="padding-top: 14px; border-top: 1px solid #111111"><div style="font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums"><span aria-hidden="true">{{cnt.d}}</span><span class="sr">4 500</span></div><div style="margin-top: 8px; font-size: 13px; line-height: 1.4">książek o muzyce</div></div>
+<div style="padding-top: 14px; border-top: 1px solid #111111"><div style="font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 44px; line-height: 1; font-variant-numeric: tabular-nums"><span aria-hidden="true">{{cnt.e}}</span><span class="sr">185</span></div><div style="margin-top: 8px; font-size: 13px; line-height: 1.4">tytułów czasopism muzycznych, polskich i zagranicznych</div></div>
+</div>
+</section>
+
+<section id="zbiory" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px; margin-top: 72px">
+<div style="flex: 1 1 380px; min-width: 0">
+<h2 style="margin: 0 0 18px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 32px">Zbiory</h2>
+<ul style="list-style: none; margin: 0; padding: 0; border-top: 1px solid #111111">
+<li style="padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6">Kolekcje muzyczne Józefa Wielhorskiego, Józefa Sikorskiego, Adama Münchheimera i Jana Karłowicza</li>
+<li style="padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6">Spuścizny kompozytorskie Stanisława Moniuszki, Zygmunta Noskowskiego, Mieczysława Karłowicza i Henryka Swolkienia</li>
+<li style="padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6">Autograf wyciągu fortepianowego „Nędzy uszczęśliwionej” Macieja Kamieńskiego (1778), pierwszej polskiej opery</li>
+<li style="padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6">Autografy Jana Stefaniego, Karola Kurpińskiego i Józefa Elsnera</li>
+<li style="padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6">Autografy i autoryzowane kopie wszystkich oper Moniuszki oraz pojedyncze autografy m.in. Chopina i Szymanowskiego</li>
+<li style="padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6">Korespondencja: około 700 listów Moniuszki oraz listy m.in. Chopina, Brahmsa, Noskowskiego, M. Karłowicza i Rogowskiego</li>
+</ul>
+</div>
+<div style="flex: 1 1 340px; min-width: 0">
+<h2 style="margin: 0 0 18px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 32px">Dostęp i katalogi</h2>
+<p style="margin: 0 0 14px; font-size: 15px; line-height: 1.7">Zbiory są udostępniane wyłącznie na miejscu, w czytelni. Czytelnia ma katalogi kartkowe rękopisów, druków muzycznych, książek, czasopism i fotografii.</p>
+<p style="margin: 0 0 14px; font-size: 15px; line-height: 1.7">Najcenniejsze rękopisy zmikrofilmowano, a negatywy przechowuje Biblioteka Narodowa w Warszawie. Część zbiorów zdigitalizowano we współpracy z Narodowym Instytutem Fryderyka Chopina.</p>
+<a href="https://polish.musicsources.pl/pl/szukaj/values?keyword=warszawskie%20towarzystwo%20muzyczne&amp;search_fields=%5B%5D" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 44px; margin-bottom: 8px; padding: 0 22px; background: #111111; color: #ffffff; font-size: 12px; letter-spacing: 0.08em">ZDIGITALIZOWANE ZBIORY</a>
+<div style="margin-top: 24px; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Katalogi drukowane</div>
+<p style="margin: 8px 0 10px; font-size: 15px; line-height: 1.6">Andrzej i Irena Spóz, <em>Katalog polskich druków muzycznych 1801–1875</em>, Warszawa 2000.</p>
+<p style="margin: 0 0 16px; font-size: 15px; line-height: 1.6">Elżbieta Wąsowska, <em>Rękopisy muzyczne XIX–XX wieku</em>, t. 1–4, red. Andrzej Spóz, Warszawa: Biblioteka Narodowa, 2001.</p>
+<p style="margin: 0; font-size: 13px; line-height: 1.6">Dokumenty biblioteki i archiwum są też dostępne przez <a href="https://rism.info" target="_blank" rel="noopener" style="text-decoration: underline">RISM</a>.</p>
+</div>
+</section>
+
+<section id="historia-biblioteki" style="margin-top: 72px">
+<h2 style="margin: 0 0 18px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 32px">Historia biblioteki</h2>
+<div style="border-top: 1px solid #111111">
+<div class="row" style="display: flex; align-items: baseline; gap: 24px; padding: 16px 8px; border-bottom: 1px solid var(--line)"><span style="flex: none; width: 120px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">1871</span><span style="flex: 1; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.35">Biblioteka i czytelnia muzyczna powstają razem z WTM w Salach Redutowych Teatru Wielkiego. Zbiory liczą wtedy kilkadziesiąt książek i kilka tysięcy nut, głównie z darów wydawców i członków.</span></div>
+<div class="row" style="display: flex; align-items: baseline; gap: 24px; padding: 16px 8px; border-bottom: 1px solid var(--line)"><span style="flex: none; width: 120px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">1891–1899</span><span style="flex: 1; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.35">Powstają sekcje im. Moniuszki i im. Chopina. Jan Karłowicz systematycznie gromadzi rękopisy, druki i pamiątki po obu kompozytorach.</span></div>
+<div class="row" style="display: flex; align-items: baseline; gap: 24px; padding: 16px 8px; border-bottom: 1px solid var(--line)"><span style="flex: none; width: 120px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">1909</span><span style="flex: 1; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.35">WTM wraz z biblioteką i szkołą muzyczną przenosi się do gmachu Filharmonii Warszawskiej.</span></div>
+<div class="row" style="display: flex; align-items: baseline; gap: 24px; padding: 16px 8px; border-bottom: 1px solid var(--line)"><span style="flex: none; width: 120px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">1939–1944</span><span style="flex: 1; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.35">We wrześniu 1939 roku zbiory muzealne przepadają w Filharmonii. Rękopisy wywieziono w 1944 roku na Dolny Śląsk, gdzie odnaleziono je rok później. Straty sięgają około 40% rękopisów, a druki nutowe i część archiwum zniszczono podczas powstania.</span></div>
+<div class="row" style="display: flex; align-items: baseline; gap: 24px; padding: 16px 8px; border-bottom: 1px solid var(--line)"><span style="flex: none; width: 120px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">1945–1956</span><span style="flex: 1; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.35">Odbudowa zbiorów. Biblioteka mieści się tymczasowo w różnych lokalach.</span></div>
+<div class="row" style="display: flex; align-items: baseline; gap: 24px; padding: 16px 8px; border-bottom: 1px solid var(--line)"><span style="flex: none; width: 120px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">1956</span><span style="flex: 1; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.35">Zbiory trafiają do budynku przy ul. Zakroczymskiej 2, gdzie działają do dziś.</span></div>
+<div class="row" style="display: flex; align-items: baseline; gap: 24px; padding: 16px 8px; border-bottom: 1px solid var(--line)"><span style="flex: none; width: 120px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">1959</span><span style="flex: 1; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.35">Placówka otrzymuje nazwę Biblioteka, Muzeum i Archiwum WTM.</span></div>
+<div class="row" style="display: flex; align-items: baseline; gap: 24px; padding: 16px 8px; border-bottom: 1px solid var(--line)"><span style="flex: none; width: 120px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">1998</span><span style="flex: 1; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.35">Zbiory zostają wpisane do Narodowego Zasobu Bibliotecznego.</span></div>
+<div class="row" style="display: flex; align-items: baseline; gap: 24px; padding: 16px 8px; border-bottom: 1px solid var(--line)"><span style="flex: none; width: 120px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">od 2002</span><span style="flex: 1; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.35">Cykl koncertów „Z muzycznej przeszłości Warszawy”, wystawy i sesje naukowe oraz wypożyczanie eksponatów innym muzeom. Konserwację, oprawę i opracowanie spuścizn kompozytorskich wspierają Ministerstwo Kultury i Dziedzictwa Narodowego oraz m.st. Warszawa.</span></div>
+</div>
+</section>
+
+<section id="zdjecia" style="margin-top: 72px">
+<h2 style="margin: 0 0 18px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 32px">Zdjęcia</h2>
+<p style="margin: 0 0 18px; max-width: 760px; font-size: 15px; line-height: 1.65">Miejsce na zdjęcia czytelni, zbiorów i eksponatów przy ul. Zakroczymskiej 2. Zdjęcia Pałacu Szustra są na stronie <a href="o-towarzystwie.html" style="text-decoration: underline">O Towarzystwie</a>.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<div style="flex: 1 1 220px; height: 160px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 12px; border: 1px dashed #8a857a; background: #faf8f3; text-align: center; font-size: 11px; line-height: 1.4; letter-spacing: 0.04em; color: #3f3c36">[ZDJĘCIE BIBLIOTEKI – DO DODANIA]</div>
+<div style="flex: 1 1 220px; height: 160px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 12px; border: 1px dashed #8a857a; background: #faf8f3; text-align: center; font-size: 11px; line-height: 1.4; letter-spacing: 0.04em; color: #3f3c36">[ZDJĘCIE BIBLIOTEKI – DO DODANIA]</div>
+<div style="flex: 1 1 220px; height: 160px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 12px; border: 1px dashed #8a857a; background: #faf8f3; text-align: center; font-size: 11px; line-height: 1.4; letter-spacing: 0.04em; color: #3f3c36">[ZDJĘCIE BIBLIOTEKI – DO DODANIA]</div>
+</div>
+</section>
+
+<section id="lokalizacja" style="margin-top: 72px">
+<h2 style="margin: 0 0 18px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 32px">Lokalizacja i kontakt</h2>
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px">
+<div style="flex: 1 1 340px; min-width: 0; max-width: 520px">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Biblioteka, Archiwum i Muzeum WTM</div>
+<p style="margin: 10px 0 0; font-size: 15px; line-height: 1.7">ul. Zakroczymska 2, 00-225 Warszawa<br>tel. <a href="tel:+48509019934" style="text-decoration: underline">509 019 934</a><br><a href="mailto:wtm@wtm.org.pl" style="text-decoration: underline">wtm@wtm.org.pl</a></p>
+<p style="margin: 14px 0 0; padding-top: 14px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.6">Dostęp do zbiorów archiwum wymaga wcześniejszego umówienia. Skontaktuj się telefonicznie lub mailowo.</p>
+</div>
+<div style="flex: 999 1 420px; min-width: 0">
+<div class="mapbg" style="position: relative; height: 380px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 24px 28px; background: #ffffff; border: 1px solid #111111; text-align: center">
+<svg width="28" height="36" viewBox="0 0 28 36" aria-hidden="true"><path d="M14 1C7 1 1.5 6.4 1.5 13.3 1.5 22.5 14 35 14 35s12.5-12.5 12.5-21.7C26.5 6.4 21 1 14 1z" fill="#8c2f39"></path><circle cx="14" cy="13" r="4.5" fill="#ffffff"></circle></svg>
+<div style="font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 22px">{{pl2.name}}</div>
+<div style="font-size: 14px">{{pl2.addr}}</div>
+<a href="{{pl2.href}}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; padding: 0 22px; background: #111111; color: #ffffff; font-size: 12px; letter-spacing: 0.08em">OTWÓRZ W MAPACH GOOGLE</a>
+</div>
+<span style="position: absolute; left: 12px; bottom: 10px; font-size: 11px; letter-spacing: 0.07em; color: #55524a">[MAPA GOOGLE – OSADZENIE PRZY WDROŻENIU]</span>
+</div>
+</div>
+</div>
+</section>
+<footer style="margin-top: 72px; padding-top: 28px; border-top: 1px solid #111111; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px 48px; font-size: 13px; line-height: 1.6">
+<div><div style="font-weight: 500">Warszawskie Towarzystwo Muzyczne im. Stanisława Moniuszki</div><div>Pałac Szustra, ul. Morskie Oko 2, 02-511 Warszawa</div></div>
+<div><div>tel. <a href="tel:+48228495651">22 849 56 51</a> · kom. <a href="tel:+48509019934">509 019 934</a></div><div><a href="mailto:wtm@wtm.org.pl">wtm@wtm.org.pl</a></div></div>
+<nav aria-label="Stopka" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0 28px">
+<a href="kontakt.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-decoration: underline; text-underline-offset: 5px">KONTAKT</a>
+<a href="wsparcie.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-decoration: underline; text-underline-offset: 5px">WSPARCIE</a>
+</nav>
+</footer>
+
+</main>
+</div>
+</script>
+<script src="wtm.js"></script>
+<script>
+class Component extends DCLogic {
+componentDidMount() {
+const reduce = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const el = document.getElementById('biblioteka');
+if (reduce) { this.setState({ cp: 1 }); return; }
+if (!el || typeof IntersectionObserver === 'undefined') { this.runCount(); return; }
+this.io = new IntersectionObserver((ents) => {
+if (ents.some((e) => e.isIntersecting)) { this.io.disconnect(); this.runCount(); }
+}, { threshold: 0.35 });
+this.io.observe(el);
+}
+componentWillUnmount() {
+if (this.io) this.io.disconnect();
+if (this.raf) cancelAnimationFrame(this.raf);
+}
+runCount() {
+const t0 = performance.now(), D = 1800;
+const step = (now) => {
+const k = Math.min(1, (now - t0) / D);
+this.setState({ cp: 1 - Math.pow(1 - k, 3) });
+if (k < 1) this.raf = requestAnimationFrame(step);
+};
+this.raf = requestAnimationFrame(step);
+}
+renderVals() {
+const navOpen = !!(this.state && this.state.navOpen);
+return Object.assign(this.pageVals(), { navCls: navOpen ? 'is-open' : '', navExpanded: navOpen ? 'true' : 'false', navLabel: navOpen ? 'Zamknij' : 'Menu', toggleNav: () => this.setState({ navOpen: !navOpen }) });
+}
+pageVals() {
+const s = Object.assign({ photo: 0, period: 0, place: 0, cp: 0 }, this.state || {});
+const fmt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
+const C = (v, suf) => fmt(v * s.cp) + (suf || '');
+const PH = [
+{ src: 'obrazy/palac-fasada.jpg', alt: 'Pałac Szustra – neogotycka fasada z wejściem i schodami', cap: 'Pałac Szustra – fasada z wejściem głównym', fit: 'cover', pos: '50% 40%' },
+{ src: 'obrazy/palac-staw.jpg', alt: 'Pałac Szustra widziany zza stawu, jesienią', cap: 'Pałac Szustra widziany zza stawu', fit: 'contain', pos: '50% 50%' },
+{ src: 'obrazy/kwartet.jpg', alt: 'Kwartet smyczkowy w sali pałacowej', cap: 'Kwartet smyczkowy w sali pałacowej', fit: 'contain', pos: '50% 50%' },
+{ src: 'obrazy/fortepian.jpg', alt: 'Pianista przy fortepianie', cap: 'Recital fortepianowy', fit: 'cover', pos: '50% 60%' }
+];
+const PER = [
+{ label: 'Wrzesień–grudzień', text: 'Wtorki i czwartki, godz. 12.00–16.00.' },
+{ label: 'Styczeń–czerwiec', text: 'Biblioteka czynna po wcześniejszym umówieniu.' },
+{ label: 'Lipiec–sierpień 2026', text: 'Biblioteka, Archiwum i Muzeum są nieczynne.' }
+];
+const PL = [
+{ tab: 'Biblioteka', name: 'Biblioteka, Archiwum i Muzeum WTM', addr: 'ul. Zakroczymska 2, 00-225 Warszawa', href: 'https://www.google.com/maps/search/?api=1&query=52.2536832%2C21.0069485' }
+];
+const n = PH.length;
+return {
+cnt: { a: C(47500, '+'), b: C(4300), c: C(36000), d: C(4500), e: C(185) },
+lineColor: this.props.lineColor ?? '#d9d1c0',
+ph: PH[s.photo], phCount: (s.photo + 1) + ' / ' + n,
+prevPh: () => this.setState({ photo: (s.photo + n - 1) % n }),
+nextPh: () => this.setState({ photo: (s.photo + 1) % n }),
+thumbs: PH.map((p, i) => ({ src: p.src, label: 'Zdjęcie ' + (i + 1) + ': ' + p.cap, pressed: i === s.photo ? 'true' : 'false', border: i === s.photo ? '3px solid #111111' : '3px solid transparent', pick: () => this.setState({ photo: i }) })),
+periods: PER.map((p, i) => ({ label: p.label, pressed: i === s.period ? 'true' : 'false', bg: i === s.period ? '#111111' : '#ffffff', color: i === s.period ? '#ffffff' : '#111111', pick: () => this.setState({ period: i }) })),
+per: PER[s.period],
+places: PL.map((p, i) => ({ tab: p.tab, pressed: i === s.place ? 'true' : 'false', bg: i === s.place ? '#111111' : '#ffffff', color: i === s.place ? '#ffffff' : '#111111', pick: () => this.setState({ place: i }) })),
+pl2: PL[s.place]
+};
+}
+}
+WTM.mount(Component, {"lineColor": "#d9d1c0"});
+</script>
+</body>
+</html>

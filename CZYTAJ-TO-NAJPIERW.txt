@@ -1,0 +1,54 @@
+STRONA WARSZAWSKIEGO TOWARZYSTWA MUZYCZNEGO — WERSJA OFFLINE
+=============================================================
+
+JAK OTWORZYĆ
+Rozpakuj całe archiwum do jednego folderu i kliknij dwukrotnie plik
+index.html. Strona otworzy się w przeglądarce. Nie trzeba instalować
+niczego ani mieć konta.
+
+WAŻNE: nie wyjmuj pojedynczych plików z folderu. Podstrony i zdjęcia
+szukają się nawzajem po nazwach, więc muszą leżeć razem.
+
+
+CO JEST W ŚRODKU
+index.html              Strona główna
+o-towarzystwie.html     O Towarzystwie
+kalendarz.html          Kalendarz koncertów
+historia.html           Historia
+biblioteka.html         Biblioteka
+akademia.html           Akademia WTM
+wspolpraca.html         Współpraca
+kontakt.html            Kontakt
+wsparcie.html           Wsparcie
+obrazy/                 Zdjęcia i ulotki
+wtm.js                  Kod obsługujący kalendarz, galerię i panel dostępności
+
+
+CO DZIAŁA BEZ INTERNETU
+Wszystkie podstrony i przejścia między nimi, kalendarz z trzema widokami
+(Program miesiąca, Miesiąc, Archiwum) i filtrami rodzajów koncertów,
+kalendarium historii z filtrem epok, galeria zdjęć Pałacu Szustra na stronie
+O Towarzystwie, rosnące liczby w statystykach Biblioteki, płynne wejście treści
+po przejściu na każdą podstronę, niebieski panel dostępności na stronie głównej
+(powiększanie tekstu, kontrast, negatyw, szarość).
+
+
+CO NIE ZADZIAŁA
+Formularz kontaktowy wygląda i reaguje jak prawdziwy, ale nic nie wysyła.
+Lokalna strona nie ma serwera pocztowego. To atrapa do pokazania układu.
+
+Przyciski "Kup bilet" nie prowadzą do sprzedaży.
+
+Plansza mapy na stronie Biblioteki to plansza z przyciskiem do Map Google.
+Przycisk zadziała tylko przy włączonym internecie.
+
+Ikona Instagrama nie ma jeszcze adresu.
+
+Kroje pisma Newsreader i Inter pobierają się z internetu. Bez połączenia
+przeglądarka użyje zastępczych (Georgia i Arial) — układ zostanie ten sam,
+litery będą nieco inne.
+
+
+UWAGA
+To zamrożona kopia z 23 października 2026. Zmiany wprowadzane później
+w projekcie nie pojawią się w tych plikach.

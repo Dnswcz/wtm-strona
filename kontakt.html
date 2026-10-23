@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontakt – Warszawskie Towarzystwo Muzyczne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes wtm-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.main > *{animation:wtm-in .6s cubic-bezier(.22,.61,.36,1) both;animation-delay:.42s}
+.main > *:nth-child(1){animation-delay:0s}
+.main > *:nth-child(2){animation-delay:.07s}
+.main > *:nth-child(3){animation-delay:.14s}
+.main > *:nth-child(4){animation-delay:.21s}
+.main > *:nth-child(5){animation-delay:.28s}
+.main > *:nth-child(6){animation-delay:.35s}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.main > *{animation:none !important}}
+a{color:#111;text-decoration:none}a:hover{text-decoration:underline}
+button,input,textarea{font-family:inherit}
+.fld{width:100%;box-sizing:border-box;min-height:48px;padding:12px 14px;border:1px solid #8a857a;background:#ffffff;color:#111111;font-size:15px;border-radius:0}
+.fld:focus{outline:2px solid #111111;outline-offset:1px}
+.mapbg{background-color:#f3efe6;background-image:repeating-linear-gradient(0deg,transparent 0 39px,#e2dccf 39px 40px),repeating-linear-gradient(90deg,transparent 0 39px,#e2dccf 39px 40px)}
+@media (max-width:860px){
+.shell{flex-direction:column !important}
+.side{width:auto !important;border-right:0 !important;border-bottom:1px solid var(--line);padding:20px 24px !important}
+.side nav{margin:12px 0 !important}
+.main{padding:24px !important}
+}
+/* telefony i tablety */
+.nav-toggle{display:none}
+.nav-toggle .i-close{display:none}
+.main a[href^="mailto:"]{overflow-wrap:anywhere}
+.main img{max-width:100%}
+@media (max-width:860px){
+.side{flex-direction:column !important;justify-content:flex-start !important;padding:12px 20px !important}
+.side > div:first-child{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.side > div:first-child > a:first-child img{width:64px !important}
+.nav-toggle{display:inline-flex !important;align-items:center;gap:10px;min-height:44px;padding:0 16px;border:1px solid #111111;background:#ffffff;color:#111111;font:500 14px/1 'Inter',Helvetica,Arial,sans-serif;letter-spacing:.04em;cursor:pointer}
+.side.is-open .nav-toggle .i-menu{display:none}
+.side.is-open .nav-toggle .i-close{display:block}
+.side nav{display:none;width:100%;margin:8px 0 0 !important;border-top:1px solid var(--line)}
+.side.is-open nav{display:block}
+.side nav a{padding:14px 0 !important;border-bottom:1px solid var(--line);font-size:16px !important}
+.side > div:last-child{display:none !important}
+.side.is-open > div:last-child{display:flex !important;align-items:center;justify-content:space-between;padding:6px 0 2px}
+.main{padding:28px 20px 40px !important}
+}
+@media (max-width:860px) and (prefers-reduced-motion:no-preference){.side.is-open nav{animation:wtm-in .25s ease both}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/x-template" id="tpl">
+<div class="shell" style="--line: {{lineColor}}; display: flex; min-height: 1000px; box-sizing: border-box; background: #ffffff; color: #111111; font-family: 'Inter', Helvetica, Arial, sans-serif">
+<aside class="side {{navCls}}" style="width: 200px; flex-shrink: 0; box-sizing: border-box; border-right: 1px solid var(--line); padding: 64px 32px 24px; display: flex; flex-direction: column; justify-content: space-between">
+<div>
+<a href="index.html" aria-label="Warszawskie Towarzystwo Muzyczne – strona główna" style="display: block"><img src="obrazy/logo-wtm.png" alt="Logo WTM – rok założenia 1871" style="display: block; width: 120px; height: auto"></a>
+<button type="button" class="nav-toggle" onClick="{{ toggleNav }}" aria-expanded="{{navExpanded}}" aria-controls="menu-glowne"><svg class="i-menu" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><svg class="i-close" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span>{{navLabel}}</span></button>
+<nav id="menu-glowne" style="margin-top: 36px" aria-label="Menu główne">
+<a href="o-towarzystwie.html" style="display: block; padding: 12px 0; font-size: 15px">O Towarzystwie</a>
+<a href="kalendarz.html" style="display: block; padding: 12px 0; font-size: 15px">Kalendarz</a>
+<a href="historia.html" style="display: block; padding: 12px 0; font-size: 15px">Historia</a>
+<a href="biblioteka.html" style="display: block; padding: 12px 0; font-size: 15px">Biblioteka</a>
+<a href="akademia.html" style="display: block; padding: 12px 0; font-size: 15px">Akademia Warszawskiego Towarzystwa Muzycznego</a>
+<a href="wspolpraca.html" style="display: block; padding: 12px 0; font-size: 15px">Współpraca</a>
+</nav>
+</div>
+<div>
+<div style="display: flex; margin-left: -12px">
+<a href="https://www.facebook.com/warszawskietowarzystwomuzyczne1871/" target="_blank" rel="noopener" aria-label="Facebook – Warszawskie Towarzystwo Muzyczne (otwiera się w nowej karcie)" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13 22v-8h2.7l.5-3.2H13V8.7c0-1 .4-1.7 1.8-1.7h1.5V4.2C16 4.1 15 4 14 4c-2.5 0-4.2 1.5-4.2 4.3v2.5H7V14h2.8v8z"/></svg></a>
+<a href="#" aria-label="Instagram" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a>
+</div>
+<a href="kontakt.html" aria-current="page" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; letter-spacing: 0.04em; font-weight: 500; text-decoration: underline; text-underline-offset: 5px">Kontakt</a>
+</div>
+</aside>
+<main class="main" style="flex: 1; min-width: 0; box-sizing: border-box; padding: 64px 40px 40px 30px">
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: clamp(30px, 4.6vw, 66px); line-height: 1.05; letter-spacing: -0.01em; color: #0d0d0d">KONTAKT</h1>
+<p style="margin: 10px 0 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: clamp(18px, 2vw, 28px); line-height: 1.2">Pałac Szustra, ul. Morskie Oko 2, 02-511 Warszawa</p>
+<section aria-label="Dane kontaktowe" style="display: flex; flex-wrap: wrap; gap: 32px; margin-top: 40px">
+<div style="flex: 1 1 240px; min-width: 0; box-sizing: border-box; padding-top: 14px; border-top: 1px solid #111111">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Informacje ogólne</div>
+<h2 style="margin: 8px 0 12px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 22px">Sekretariat WTM</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.7">tel. <a href="tel:+48228495651" style="text-decoration: underline">22 849 56 51</a><br>kom. <a href="tel:+48509019934" style="text-decoration: underline">509 019 934</a><br><a href="mailto:wtm@wtm.org.pl" style="text-decoration: underline">wtm@wtm.org.pl</a><br><a href="mailto:warszawskietowarzystwomuzyczne@gmail.com" style="text-decoration: underline; word-break: break-all">warszawskietowarzystwomuzyczne@gmail.com</a></p>
+</div>
+<div style="flex: 1 1 240px; min-width: 0; box-sizing: border-box; padding-top: 14px; border-top: 1px solid #111111">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Koncerty</div>
+<h2 style="margin: 8px 0 12px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 22px">Kasa biletowa</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.7">pon.–pt. 12.00–19.00<br>rezerwacje: <a href="tel:+48509019934" style="text-decoration: underline">509 019 934</a><br>bilety online: <a href="https://kicket.com" target="_blank" rel="noopener" style="text-decoration: underline">kicket.com</a><br>oraz 30 minut przed koncertem</p>
+</div>
+<div style="flex: 1 1 240px; min-width: 0; box-sizing: border-box; padding-top: 14px; border-top: 1px solid #111111">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Edukacja</div>
+<h2 style="margin: 8px 0 12px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 22px">Akademia WTM</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.7">pon.–pt. 12.00–19.00<br>tel. <a href="tel:+48513123119" style="text-decoration: underline">513 123 119</a><br><a href="mailto:akademiawtm@gmail.com" style="text-decoration: underline">akademiawtm@gmail.com</a></p>
+</div>
+<div style="flex: 1 1 240px; min-width: 0; box-sizing: border-box; padding-top: 14px; border-top: 1px solid #111111">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Dane rejestrowe</div>
+<h2 style="margin: 8px 0 12px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 22px">WTM im. S. Moniuszki</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.7">KRS 0000042299<br>REGON 007023665<br>NIP 5212884012<br>Bank Millennium S.A.<br>67 1160 2202 0000 0000 2832 8836</p>
+</div>
+</section>
+<section aria-label="Mapa dojazdu" style="margin-top: 48px">
+<div class="mapbg" style="position: relative; height: 380px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 24px 28px; background: #ffffff; border: 1px solid #111111; text-align: center">
+<svg width="28" height="36" viewBox="0 0 28 36" aria-hidden="true"><path d="M14 1C7 1 1.5 6.4 1.5 13.3 1.5 22.5 14 35 14 35s12.5-12.5 12.5-21.7C26.5 6.4 21 1 14 1z" fill="#8c2f39"/><circle cx="14" cy="13" r="4.5" fill="#ffffff"/></svg>
+<div style="font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 22px">Pałac Szustra</div>
+<div style="font-size: 14px">ul. Morskie Oko 2, Warszawa (Mokotów)</div>
+<a href="https://www.google.com/maps/search/?api=1&amp;query=Pa%C5%82ac+Szustra%2C+Morskie+Oko+2%2C+Warszawa" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; padding: 0 22px; background: #111111; color: #ffffff; font-size: 12px; letter-spacing: 0.08em">OTWÓRZ W MAPACH GOOGLE</a>
+</div>
+<span style="position: absolute; left: 12px; bottom: 10px; font-size: 11px; letter-spacing: 0.07em; color: #55524a">[MAPA GOOGLE – OSADZENIE PRZY WDROŻENIU]</span>
+</div>
+</section>
+<section aria-labelledby="form-h" style="margin-top: 56px; max-width: 760px">
+<h2 id="form-h" style="margin: 0 0 6px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 30px">Napisz do nas</h2>
+<p style="margin: 0 0 22px; font-size: 14px">Wybierz, czego dotyczy wiadomość – trafi do właściwej osoby.</p>
+<sc-if value="{{formOpen}}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 10px">W sprawie</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{topics}}" as="t" hint-placeholder-count="4">
+<button type="button" onClick="{{ t.pick }}" aria-pressed="{{t.pressed}}" style="min-height: 44px; padding: 0 18px; border: 1px solid #111111; background: {{t.bg}}; color: {{t.color}}; font-size: 14px; cursor: pointer">{{t.label}}</button>
+</sc-for>
+</div>
+<p style="margin: 12px 0 24px; font-size: 13px; color: #4a4741">{{topicHint}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 16px 20px">
+<div style="flex: 1 1 260px; min-width: 0"><label for="f-name" style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 500">Imię i nazwisko</label><input id="f-name" class="fld" type="text" autocomplete="name"></div>
+<div style="flex: 1 1 260px; min-width: 0"><label for="f-mail" style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 500">E-mail</label><input id="f-mail" class="fld" type="email" autocomplete="email"></div>
+<div style="flex: 1 1 260px; min-width: 0"><label for="f-tel" style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 500">Telefon (opcjonalnie)</label><input id="f-tel" class="fld" type="tel" autocomplete="tel"></div>
+<div style="flex: 1 1 100%; min-width: 0"><label for="f-msg" style="display: block; margin-bottom: 6px; font-size: 13px; font-weight: 500">Wiadomość</label><textarea id="f-msg" class="fld" rows="6" style="resize: vertical"></textarea></div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 18px"><input id="f-rodo" type="checkbox" style="width: 20px; height: 20px; margin: 2px 0 0; flex: none"><label for="f-rodo" style="font-size: 13px; line-height: 1.5">Wyrażam zgodę na przetwarzanie moich danych przez Warszawskie Towarzystwo Muzyczne w celu udzielenia odpowiedzi na wiadomość.</label></div>
+<button type="button" onClick="{{ send }}" style="min-height: 48px; margin-top: 24px; padding: 0 32px; border: 0; background: #111111; color: #ffffff; font-size: 13px; letter-spacing: 0.08em; cursor: pointer">WYŚLIJ WIADOMOŚĆ</button>
+</sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="padding: 28px; border: 1px solid #111111">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Wiadomość wysłana</div>
+<p style="margin: 10px 0 18px; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 22px; line-height: 1.35">Dziękujemy. Twoja wiadomość w sprawie „{{topicLabel}}” trafiła do WTM. Odpowiemy najszybciej, jak to możliwe.</p>
+<button type="button" onClick="{{ again }}" style="min-height: 44px; padding: 0 20px; border: 1px solid #111111; background: #ffffff; color: #111111; font-size: 13px; cursor: pointer">Napisz kolejną wiadomość</button>
+</div>
+</sc-if>
+</section>
+<footer style="margin-top: 72px; padding-top: 28px; border-top: 1px solid #111111; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px 48px; font-size: 13px; line-height: 1.6">
+<div><div style="font-weight: 500">Warszawskie Towarzystwo Muzyczne im. Stanisława Moniuszki</div><div>Pałac Szustra, ul. Morskie Oko 2, 02-511 Warszawa</div></div>
+<div><div>tel. <a href="tel:+48228495651">22 849 56 51</a> · kom. <a href="tel:+48509019934">509 019 934</a></div><div><a href="mailto:wtm@wtm.org.pl">wtm@wtm.org.pl</a></div></div>
+<nav aria-label="Stopka" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0 28px">
+<a href="kontakt.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-decoration: underline; text-underline-offset: 5px">KONTAKT</a>
+<a href="wsparcie.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-decoration: underline; text-underline-offset: 5px">WSPARCIE</a>
+</nav>
+</footer>
+</main>
+</div>
+</script>
+<script src="wtm.js"></script>
+<script>
+class Component extends DCLogic {
+renderVals() {
+const navOpen = !!(this.state && this.state.navOpen);
+return Object.assign(this.pageVals(), { navCls: navOpen ? 'is-open' : '', navExpanded: navOpen ? 'true' : 'false', navLabel: navOpen ? 'Zamknij' : 'Menu', toggleNav: () => this.setState({ navOpen: !navOpen }) });
+}
+pageVals() {
+const s = Object.assign({ topic: 'ogolne', sent: false }, this.state || {});
+const T = [['zarzad', 'Zarząd', 'Sprawy organizacyjne, członkostwo, mecenat i sponsoring.'], ['koncerty', 'Koncerty', 'Program, bilety, rezerwacje i występy w Pałacu Szustra.'], ['reklama', 'Reklama', 'Reklama w materiałach WTM i współpraca partnerska.'], ['ogolne', 'Informacje ogólne', 'Wszystkie inne pytania do sekretariatu WTM.']];
+const cur = T.find((x) => x[0] === s.topic) || T[3];
+return {
+lineColor: this.props.lineColor ?? '#d9d1c0',
+topics: T.map((x) => ({ label: x[1], pressed: x[0] === s.topic ? 'true' : 'false', bg: x[0] === s.topic ? '#111111' : '#ffffff', color: x[0] === s.topic ? '#ffffff' : '#111111', pick: () => this.setState({ topic: x[0] }) })),
+topicHint: cur[2], topicLabel: cur[1], formOpen: !s.sent, sent: s.sent,
+send: () => this.setState({ sent: true }), again: () => this.setState({ sent: false })
+};
+}
+}
+WTM.mount(Component, {"lineColor": "#d9d1c0"});
+</script>
+</body>
+</html>

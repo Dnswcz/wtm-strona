@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalendarz koncertów – Warszawskie Towarzystwo Muzyczne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes wtm-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.main > *{animation:wtm-in .6s cubic-bezier(.22,.61,.36,1) both;animation-delay:.42s}
+.main > *:nth-child(1){animation-delay:0s}
+.main > *:nth-child(2){animation-delay:.07s}
+.main > *:nth-child(3){animation-delay:.14s}
+.main > *:nth-child(4){animation-delay:.21s}
+.main > *:nth-child(5){animation-delay:.28s}
+.main > *:nth-child(6){animation-delay:.35s}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.main > *{animation:none !important}}
+a{color:#111;text-decoration:none}a:hover{text-decoration:underline}
+button{font-family:inherit}
+.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media (max-width:860px){
+.shell{flex-direction:column !important}
+.side{width:auto !important;border-right:0 !important;border-bottom:1px solid var(--line);padding:20px 24px !important}
+.side nav{margin:12px 0 !important}
+.main{padding:24px !important}
+.cell{min-height:56px !important;padding:4px 2px !important}
+.clamp{display:none !important}
+}
+@media (max-width:860px){
+.cell button{justify-content:center !important;min-height:40px;padding:0 !important}
+.cell button > span + span{display:none !important}
+.cell button > span:first-child{width:12px !important;height:12px !important;margin:0 !important}
+.cell > div{font-size:0 !important;line-height:0 !important;height:10px;padding:0 !important;margin-top:8px !important}
+}
+/* telefony i tablety */
+.nav-toggle{display:none}
+.nav-toggle .i-close{display:none}
+.main a[href^="mailto:"]{overflow-wrap:anywhere}
+.main img{max-width:100%}
+@media (max-width:860px){
+.side{flex-direction:column !important;justify-content:flex-start !important;padding:12px 20px !important}
+.side > div:first-child{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.side > div:first-child > a:first-child img{width:64px !important}
+.nav-toggle{display:inline-flex !important;align-items:center;gap:10px;min-height:44px;padding:0 16px;border:1px solid #111111;background:#ffffff;color:#111111;font:500 14px/1 'Inter',Helvetica,Arial,sans-serif;letter-spacing:.04em;cursor:pointer}
+.side.is-open .nav-toggle .i-menu{display:none}
+.side.is-open .nav-toggle .i-close{display:block}
+.side nav{display:none;width:100%;margin:8px 0 0 !important;border-top:1px solid var(--line)}
+.side.is-open nav{display:block}
+.side nav a{padding:14px 0 !important;border-bottom:1px solid var(--line);font-size:16px !important}
+.side > div:last-child{display:none !important}
+.side.is-open > div:last-child{display:flex !important;align-items:center;justify-content:space-between;padding:6px 0 2px}
+.main{padding:28px 20px 40px !important}
+}
+@media (max-width:860px) and (prefers-reduced-motion:no-preference){.side.is-open nav{animation:wtm-in .25s ease both}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/x-template" id="tpl">
+<div class="shell" style="--line: {{lineColor}}; display: flex; min-height: 1000px; box-sizing: border-box; background: #ffffff; color: #111111; font-family: 'Inter', Helvetica, Arial, sans-serif">
+<aside class="side {{navCls}}" style="width: 200px; flex-shrink: 0; box-sizing: border-box; border-right: 1px solid var(--line); padding: 64px 32px 24px; display: flex; flex-direction: column; justify-content: space-between">
+<div>
+<a href="index.html" aria-label="Warszawskie Towarzystwo Muzyczne – strona główna" style="display: block"><img src="obrazy/logo-wtm.png" alt="Logo WTM – rok założenia 1871" style="display: block; width: 120px; height: auto"></a>
+<button type="button" class="nav-toggle" onClick="{{ toggleNav }}" aria-expanded="{{navExpanded}}" aria-controls="menu-glowne"><svg class="i-menu" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><svg class="i-close" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span>{{navLabel}}</span></button>
+<nav id="menu-glowne" style="margin-top: 36px" aria-label="Menu główne">
+<a href="o-towarzystwie.html" style="display: block; padding: 12px 0; font-size: 15px">O Towarzystwie</a>
+<a href="kalendarz.html" aria-current="page" style="display: block; padding: 12px 0; font-size: 15px; font-weight: 500; text-decoration: underline; text-underline-offset: 6px">Kalendarz</a>
+<a href="historia.html" style="display: block; padding: 12px 0; font-size: 15px">Historia</a>
+<a href="biblioteka.html" style="display: block; padding: 12px 0; font-size: 15px">Biblioteka</a>
+<a href="akademia.html" style="display: block; padding: 12px 0; font-size: 15px">Akademia Warszawskiego Towarzystwa Muzycznego</a>
+<a href="wspolpraca.html" style="display: block; padding: 12px 0; font-size: 15px">Współpraca</a>
+</nav>
+</div>
+<div>
+<div style="display: flex; margin-left: -12px">
+<a href="https://www.facebook.com/warszawskietowarzystwomuzyczne1871/" target="_blank" rel="noopener" aria-label="Facebook – Warszawskie Towarzystwo Muzyczne (otwiera się w nowej karcie)" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13 22v-8h2.7l.5-3.2H13V8.7c0-1 .4-1.7 1.8-1.7h1.5V4.2C16 4.1 15 4 14 4c-2.5 0-4.2 1.5-4.2 4.3v2.5H7V14h2.8v8z"/></svg></a>
+<a href="#" aria-label="Instagram" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg></a>
+</div>
+<a href="kontakt.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; letter-spacing: 0.04em; font-weight: 500; text-decoration: underline; text-underline-offset: 5px">Kontakt</a>
+</div>
+</aside>
+<main class="main" style="flex: 1; min-width: 0; box-sizing: border-box; padding: 64px 40px 40px 30px">
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: clamp(30px, 4.6vw, 66px); line-height: 1.05; letter-spacing: -0.01em; color: #0d0d0d">KALENDARZ</h1>
+<p style="margin: 10px 0 26px; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: clamp(18px, 2vw, 28px); line-height: 1.2">Koncerty w Pałacu Szustra – nadchodzące i archiwum</p>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 12px 0; margin-bottom: 24px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line)">
+<div style="display: flex; border: 1px solid #111111">
+<button onClick="{{ setProgram }}" style="height: 44px; padding: 0 20px; border: 0; background: {{vProgBg}}; color: {{vProgColor}}; font-size: 13px; letter-spacing: 0.04em; cursor: pointer">Program miesiąca</button>
+<button onClick="{{ setMonth }}" style="height: 44px; padding: 0 20px; border: 0; border-left: 1px solid #111111; background: {{vMonthBg}}; color: {{vMonthColor}}; font-size: 13px; letter-spacing: 0.04em; cursor: pointer">Miesiąc</button>
+<button onClick="{{ setArchive }}" style="height: 44px; padding: 0 20px; border: 0; border-left: 1px solid #111111; background: {{vArchBg}}; color: {{vArchColor}}; font-size: 13px; letter-spacing: 0.04em; cursor: pointer">Archiwum</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="7">
+<button onClick="{{ f.pick }}" style="height: 44px; padding: 0 16px; border: 1px solid #111111; background: {{f.bg}}; color: {{f.color}}; font-size: 13px; cursor: pointer">{{f.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px">
+<section style="flex: 999 1 560px; min-width: 0">
+<sc-if value="{{isProgram}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 24px">
+<button onClick="{{ prev }}" aria-label="Poprzedni miesiąc" style="width: 44px; height: 44px; border: 1px solid var(--line); background: #ffffff; color: #111111; font-size: 18px; cursor: pointer">←</button>
+<h2 style="margin: 0; min-width: 220px; text-align: center; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 30px">{{monthLabel}}</h2>
+<button onClick="{{ next }}" aria-label="Następny miesiąc" style="width: 44px; height: 44px; border: 1px solid var(--line); background: #ffffff; color: #111111; font-size: 18px; cursor: pointer">→</button>
+</div>
+<sc-if value="{{prog.has}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px">
+<div style="flex: 1 1 300px; max-width: 420px; min-width: 0">
+<a href="{{prog.img}}" target="_blank" rel="noopener" aria-label="Otwórz ulotkę w pełnym rozmiarze" style="display: block; border: 1px solid var(--line)"><img src="{{prog.img}}" alt="{{prog.alt}}" style="display: block; width: 100%; height: auto"></a>
+<a href="{{prog.img}}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; font-size: 12px; letter-spacing: 0.07em; text-decoration: underline">ULOTKA W PEŁNYM ROZMIARZE</a>
+</div>
+<div style="flex: 999 1 420px; min-width: 0; max-width: 720px">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">{{prog.kicker}}</div>
+<h3 style="margin: 10px 0 18px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: clamp(36px, 4vw, 54px); line-height: 1">{{prog.title}}</h3>
+<p style="margin: 0 0 24px; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 21px; line-height: 1.45">{{prog.lead}}</p>
+<sc-for list="{{prog.paras}}" as="pp" hint-placeholder-count="6">
+<p style="margin: 0 0 16px; font-size: 15px; line-height: 1.65">{{pp}}</p>
+</sc-for>
+<p style="margin: 8px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 19px; line-height: 1.45">{{prog.outro}}</p>
+<div style="margin-top: 36px">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">W programie</div>
+<sc-for list="{{prog.rows}}" as="r" hint-placeholder-count="6">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px; padding: 14px 0; border-bottom: 1px solid var(--line)">
+<span style="flex: none; width: 120px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">{{r.date}}</span>
+<span style="flex: 1 1 260px; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 19px; line-height: 1.25">{{r.title}}</span>
+<sc-if value="{{r.upcoming}}" hint-placeholder-val="{{ true }}">
+<a href="#" style="flex: none; display: inline-flex; align-items: center; min-height: 44px; font-size: 11px; letter-spacing: 0.07em; text-decoration: underline">KUP BILET</a>
+</sc-if>
+<sc-if value="{{r.past}}" hint-placeholder-val="{{ false }}">
+<span style="flex: none; font-size: 11px; letter-spacing: 0.07em; color: #55524a">ODBYŁ SIĘ</span>
+</sc-if>
+</div>
+</sc-for>
+<p style="margin: 18px 0 0; font-size: 13px; line-height: 1.55; color: #4a4741">{{prog.tickets}}</p>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{prog.soon}}" hint-placeholder-val="{{ false }}">
+<div style="max-width: 760px; box-sizing: border-box; padding: 36px 32px; border: 1px solid #111111">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Program w przygotowaniu</div>
+<h3 style="margin: 10px 0 14px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: clamp(32px, 3.6vw, 48px); line-height: 1">{{prog.title}}</h3>
+<p style="margin: 0 0 18px; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 24px; line-height: 1.35">{{prog.msg}}</p>
+<p style="margin: 0 0 28px; font-size: 15px; line-height: 1.65">{{prog.note}}</p>
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Planowane terminy</div>
+<sc-for list="{{prog.slots}}" as="sl" hint-placeholder-count="5">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px; padding: 14px 0; border-bottom: 1px solid var(--line)">
+<span style="flex: none; width: 200px; font-size: 12px; font-weight: 500; letter-spacing: 0.04em">{{sl.date}}</span>
+<span style="flex: 1 1 180px; min-width: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 19px">{{sl.time}}</span>
+<span style="flex: none; font-size: 11px; letter-spacing: 0.07em; color: #55524a">TERMIN WSTĘPNY</span>
+</div>
+</sc-for>
+<a href="kontakt.html" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 26px; padding: 0 24px; background: #111111; color: #ffffff; font-size: 12px; letter-spacing: 0.08em">ZAPYTAJ O PROGRAM</a>
+</div>
+</sc-if>
+<sc-if value="{{prog.none}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; padding: 32px 0; border-top: 1px solid var(--line); font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 22px">Program na ten miesiąc nie został opublikowany.</p>
+</sc-if>
+</sc-if>
+<sc-if value="{{isMonth}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 16px">
+<button onClick="{{ prev }}" aria-label="Poprzedni miesiąc" style="width: 44px; height: 44px; border: 1px solid var(--line); background: #ffffff; color: #111111; font-size: 18px; cursor: pointer">←</button>
+<h2 style="margin: 0; min-width: 220px; text-align: center; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 30px">{{monthLabel}}</h2>
+<button onClick="{{ next }}" aria-label="Następny miesiąc" style="width: 44px; height: 44px; border: 1px solid var(--line); background: #ffffff; color: #111111; font-size: 18px; cursor: pointer">→</button>
+<button onClick="{{ today }}" style="height: 44px; padding: 0 18px; margin-left: 8px; border: 1px solid #111111; background: #ffffff; color: #111111; font-size: 13px; cursor: pointer">Dziś</button>
+<span style="margin-left: auto; font-size: 13px">{{countLine}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line)">
+<div style="box-sizing: border-box; border-left: 3px solid transparent; padding: 10px 8px; font-size: 12px; letter-spacing: 0.06em; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line)">PN</div>
+<div style="box-sizing: border-box; border-left: 3px solid transparent; padding: 10px 8px; font-size: 12px; letter-spacing: 0.06em; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line)">WT</div>
+<div style="box-sizing: border-box; border-left: 3px solid transparent; padding: 10px 8px; font-size: 12px; letter-spacing: 0.06em; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line)">ŚR</div>
+<div style="box-sizing: border-box; border-left: 3px solid transparent; padding: 10px 8px; font-size: 12px; letter-spacing: 0.06em; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line)">CZ</div>
+<div style="box-sizing: border-box; border-left: 3px solid transparent; padding: 10px 8px; font-size: 12px; letter-spacing: 0.06em; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line)">PT</div>
+<div style="box-sizing: border-box; border-left: 3px solid transparent; padding: 10px 8px; font-size: 12px; letter-spacing: 0.06em; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line)">SO</div>
+<div style="box-sizing: border-box; border-left: 3px solid #8c2f39; padding: 10px 8px; font-size: 12px; letter-spacing: 0.06em; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); font-weight: 500">ND</div>
+<sc-for list="{{cells}}" as="c" hint-placeholder-count="35">
+<div class="cell" style="min-height: 118px; box-sizing: border-box; padding: 8px 6px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); border-left: 3px solid {{c.sunBar}}; background: {{c.bg}}">
+<span style="display: inline-flex; align-items: center; justify-content: center; min-width: 26px; height: 26px; border-radius: 13px; font-size: 13px; background: {{c.todayBg}}; color: {{c.todayColor}}">{{c.day}}</span>
+<sc-if value="{{c.planned}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 4px; padding: 5px 4px; border: 1px dashed #8a857a; background: #faf8f3; font-size: 11px; line-height: 1.3; color: #3f3c36">Planowany termin<br>godz. 12.00</div>
+</sc-if>
+<sc-for list="{{c.events}}" as="e" hint-placeholder-count="1">
+<button onClick="{{ e.pick }}" style="display: flex; align-items: flex-start; gap: 6px; width: 100%; box-sizing: border-box; margin-top: 4px; padding: 4px; border: 0; text-align: left; background: {{e.bg}}; color: {{e.color}}; font-size: 12px; line-height: 1.25; cursor: pointer">
+<span style="flex: none; width: 8px; height: 8px; margin-top: 3px; border-radius: 50%; background: {{e.dot}}"></span>
+<span style="flex: 1; min-width: 0"><span class="clamp">{{e.title}}</span><sc-if value="{{e.hasTime}}" hint-placeholder-val="{{ true }}"><span style="display: block; margin-top: 3px; font-size: 11px; letter-spacing: 0.04em; color: #4a4741">{{e.time}}</span></sc-if></span>
+</button>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{monthEmpty}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--line); max-width: 680px; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.4">{{emptyMsg}}</p>
+</sc-if>
+</sc-if>
+<sc-if value="{{isArchive}}" hint-placeholder-val="{{ false }}">
+<div style="margin-bottom: 8px; font-size: 13px">{{countLine}}</div>
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="2">
+<div style="margin-bottom: 28px">
+<h2 style="margin: 0; padding-bottom: 8px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 26px; border-bottom: 1px solid #111111">{{g.label}}</h2>
+<sc-for list="{{g.rows}}" as="r" hint-placeholder-count="3">
+<button onClick="{{ r.pick }}" style="display: flex; align-items: baseline; gap: 20px; width: 100%; box-sizing: border-box; padding: 14px 8px; border: 0; border-bottom: 1px solid var(--line); text-align: left; background: {{r.bg}}; color: #111111; cursor: pointer">
+<span style="flex: none; width: 76px; font-size: 12px; letter-spacing: 0.05em">{{r.date}}</span>
+<span style="flex: 1; min-width: 0"><span style="display: block; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 20px; line-height: 1.2">{{r.title}}</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.4; color: #4a4741">{{r.who}}</span></span>
+<span style="flex: none; display: flex; align-items: center; gap: 6px; font-size: 12px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{r.dot}}"></span>{{r.kindLabel}}</span>
+</button>
+</sc-for>
+</div>
+</sc-for>
+<sc-if value="{{archiveEmpty}}" hint-placeholder-val="{{ false }}">
+<p style="font-size: 14px">Brak koncertów dla wybranego filtra.</p>
+</sc-if>
+</sc-if>
+</section>
+<sc-if value="{{showAside}}" hint-placeholder-val="{{ true }}">
+<aside aria-label="Szczegóły koncertu" style="flex: 1 1 320px; max-width: 400px; box-sizing: border-box; padding: 24px; border: 1px solid var(--line)">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{sel.dot}}"></span>{{sel.kindLabel}}</div>
+<h2 style="margin: 14px 0 8px; font-family: 'Newsreader', Georgia, serif; font-weight: 700; font-size: 30px; line-height: 1.1">{{sel.title}}</h2>
+<p style="margin: 0 0 22px; font-size: 14px">{{sel.dateLine}}</p>
+<sc-if value="{{sel.hasWho}}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Wykonawcy</div>
+<p style="margin: 6px 0 18px; font-size: 14px; line-height: 1.5">{{sel.who}}</p>
+</sc-if>
+<sc-if value="{{sel.hasAbout}}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">O koncercie</div>
+<p style="margin: 6px 0 18px; font-size: 14px; line-height: 1.5">{{sel.about}}</p>
+</sc-if>
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Miejsce</div>
+<p style="margin: 6px 0 18px; font-size: 14px; line-height: 1.5">Pałac Szustra, ul. Morskie Oko 2, Warszawa</p>
+<sc-if value="{{sel.hasPrice}}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase">Bilety</div>
+<p style="margin: 6px 0 18px; font-size: 14px">{{sel.price}}</p>
+</sc-if>
+<sc-if value="{{sel.isUpcoming}}" hint-placeholder-val="{{ true }}">
+<a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 24px; background: #111111; color: #ffffff; font-size: 12px; letter-spacing: 0.08em">KUP BILET</a>
+</sc-if>
+<sc-if value="{{sel.isPast}}" hint-placeholder-val="{{ false }}">
+<div style="padding-top: 14px; border-top: 1px solid var(--line); font-size: 12px; letter-spacing: 0.07em">ARCHIWUM · KONCERT JUŻ SIĘ ODBYŁ</div>
+</sc-if>
+</aside>
+</sc-if>
+</div>
+<footer style="margin-top: 72px; padding-top: 28px; border-top: 1px solid #111111; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px 48px; font-size: 13px; line-height: 1.6">
+<div><div style="font-weight: 500">Warszawskie Towarzystwo Muzyczne im. Stanisława Moniuszki</div><div>Pałac Szustra, ul. Morskie Oko 2, 02-511 Warszawa</div></div>
+<div><div>tel. <a href="tel:+48228495651">22 849 56 51</a> · kom. <a href="tel:+48509019934">509 019 934</a></div><div><a href="mailto:wtm@wtm.org.pl">wtm@wtm.org.pl</a></div></div>
+<nav aria-label="Stopka" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0 28px">
+<a href="kontakt.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-decoration: underline; text-underline-offset: 5px">KONTAKT</a>
+<a href="wsparcie.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-decoration: underline; text-underline-offset: 5px">WSPARCIE</a>
+</nav>
+</footer>
+</main>
+</div>
+</script>
+<script src="wtm.js"></script>
+<script>
+class Component extends DCLogic {
+renderVals() {
+const navOpen = !!(this.state && this.state.navOpen);
+return Object.assign(this.pageVals(), { navCls: navOpen ? 'is-open' : '', navExpanded: navOpen ? 'true' : 'false', navLabel: navOpen ? 'Zamknij' : 'Menu', toggleNav: () => this.setState({ navOpen: !navOpen }) });
+}
+pageVals() {
+const s = Object.assign({ y: 2026, m: 9, filter: 'all', view: 'month', sel: 9 }, this.state || {});
+const TODAY = '2026-10-22';
+const MN = ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
+const MG = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
+const WD = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'];
+const WS = ['ND','PN','WT','ŚR','CZ','PT','SO'];
+const KINDS = { kameralna: ['Muzyka kameralna', '#8c2f39'], recital: ['Recital', '#1d1d1b'], operetka: ['Operetka', '#b07a2a'], jazz: ['Jazz', '#2f5d62'], orkiestra: ['Koncert orkiestrowy', '#4b3f72'], inne: ['Inne wydarzenia', '#6b675c'] };
+const ROWS = [
+['2026-09-06','16:00','Uśmiechnij się z Kiepurą','inne','Hanna Samson, Łukasz Gaj, Jacek Wójcicki, Łukasz Lech; Katarzyna Starzycka – fortepian, Mieczysław Smyda – skrzypce','Plenerowy koncert z przebojami z repertuaru Jana Kiepury, z okazji 155-lecia WTM.','wolny wstęp'],
+['2026-09-13','12:00','Muzyczne portrety Warszawy','kameralna','Jolanta Sosnowska – skrzypce, Urszula Świerczyńska – fortepian','Utwory J. Wieniawskiego, Z. Noskowskiego, A. Zarzyckiego, M. Rogowskiego i M. Sawy.',''],
+['2026-09-17','19:00','Jazz Not Jazz – Szymon Mika Trio','jazz','Szymon Mika Trio','Muzyka z albumów „Unseen” i „Agma” oraz premierowe kompozycje.',''],
+['2026-09-20','12:00','VIVA(T) OPERETKA','operetka','Krystyna Wysocka-Kochan – sopran, Maciej Musiał – tenor, Mariusz Dubrawski – fortepian; prowadzi Hanna Samson','Utwory m.in. Nico Dostala, Franza Lehára, Imre Kálmána i Eduarda di Capui.',''],
+['2026-09-27','12:00','Perły Wokalistyki Polskiej','recital','Dorota Laskowiecka-Urban – sopran, Beata Szebesczyk – fortepian','Pieśni Wilhelma Troschla, współtwórcy WTM, w prawykonaniu.',''],
+['2026-10-04','12:00','Sztuka Preludiowania','recital','Władysław Kłosiewicz – klawesyn','Utwory Louisa Couperina w 400. rocznicę jego urodzin.',''],
+['2026-10-11','12:00','Mistrzowskie Interpretacje Tomasza Strahla','kameralna','Tomasz Strahl – wiolonczela, Maria Peradzyńska – flet, Robert Morawski – fortepian','Kompozycje Ignacego Jana Paderewskiego, Fryderyka Chopina, Carla Frühlinga, Franza Schuberta i Josepha Haydna.',''],
+['2026-10-18','12:00','VIVA(T) OPERETKA','operetka','Ewelina Szybilska – sopran, Łukasz Gaj – tenor, Mariusz Dubrawski – fortepian; prowadzi Hanna Samson','Utwory Johanna Straussa, Franza Lehára, Eduarda di Capui, Imre Kálmána i Roberta Stolza.',''],
+['2026-10-19','18:00','Twarzą w Twarz z Markiem Stefankiewiczem','inne','Marek Stefankiewicz – fortepian, Janusz Szrom – wokal; Jagoda Opalińska i zaproszeni goście','Wieczór muzyki i rozmowy w ramach obchodów 155-lecia WTM.',''],
+['2026-10-22','19:00','Jazz Not Jazz – Salon Morskie Oko','jazz','Kuba Stankiewicz – fortepian, Wojciech Pulcyn – kontrabas, Sebastian Frankiewicz – perkusja','Program łączący klasykę, jazz i improwizację.','20 zł'],
+['2026-10-25','17:00','Fortepianowa rewolucja w wykonaniu Waldemara Malickiego','recital','Waldemar Malicki – fortepian','Recital solo: „Koncert fortepianowy solo to fortepianowa rewolucja”.','120 zł']
+];
+const p = (n) => String(n).padStart(2, '0');
+const all = ROWS.map((r, i) => ({ i: i, iso: r[0], time: r[1], title: r[2], kind: r[3], who: r[4], about: r[5], price: r[6], d: new Date(r[0] + 'T12:00:00'), past: r[0] < TODAY }));
+const vis = all.filter((c) => s.filter === 'all' || c.kind === s.filter);
+const pick = (c) => () => this.setState({ sel: c.i });
+const first = new Date(s.y, s.m, 1);
+const off = (first.getDay() + 6) % 7;
+const dim = new Date(s.y, s.m + 1, 0).getDate();
+const n = Math.ceil((off + dim) / 7) * 7;
+const tY = +TODAY.slice(0, 4); const tM = +TODAY.slice(5, 7) - 1;
+const monthHas = all.some((c) => c.d.getFullYear() === s.y && c.d.getMonth() === s.m);
+const showPlanned = !monthHas && (s.y * 12 + s.m) >= (tY * 12 + tM);
+const plan = [];
+if (showPlanned) { for (let q = 1; q <= dim; q++) { const dq = new Date(s.y, s.m, q); const isoQ = s.y + '-' + p(s.m + 1) + '-' + p(q); if (dq.getDay() === 0 && isoQ >= TODAY) plan.push({ d: q, iso: isoQ }); } }
+const cells = [];
+for (let k = 0; k < n; k++) {
+const d = new Date(s.y, s.m, 1 - off + k);
+const iso = d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+const inM = d.getMonth() === s.m;
+const isT = iso === TODAY;
+cells.push({ day: d.getDate(), bg: inM ? '#ffffff' : '#faf8f3', todayBg: isT ? '#111111' : 'transparent', todayColor: isT ? '#ffffff' : (inM ? '#111111' : '#6b675c'),
+planned: showPlanned && inM && d.getDay() === 0 && iso >= TODAY,
+sunBar: (d.getDay() === 0 && inM) ? '#8c2f39' : 'transparent',
+events: vis.filter((c) => c.iso === iso).map((c) => ({ title: c.title, time: c.time ? 'godz. ' + c.time : '', hasTime: !!c.time, dot: KINDS[c.kind][1], bg: c.i === s.sel ? '#efe9db' : 'transparent', color: c.past ? '#55524a' : '#111111', pick: pick(c) })) });
+}
+const inMonth = vis.filter((c) => c.d.getFullYear() === s.y && c.d.getMonth() === s.m);
+const past = vis.filter((c) => c.past).sort((a, b) => (a.iso < b.iso ? 1 : -1));
+const gm = {}; const groups = [];
+past.forEach((c) => {
+const key = c.iso.slice(0, 7);
+if (!gm[key]) { gm[key] = { label: MN[c.d.getMonth()] + ' ' + c.d.getFullYear(), rows: [] }; groups.push(gm[key]); }
+gm[key].rows.push({ date: WS[c.d.getDay()] + ' ' + c.d.getDate() + ' ' + MG[c.d.getMonth()].slice(0, 3).toUpperCase(), title: c.title, who: c.who, kindLabel: KINDS[c.kind][0], dot: KINDS[c.kind][1], bg: c.i === s.sel ? '#efe9db' : '#ffffff', pick: pick(c) });
+});
+const go = (dm) => () => { let m = s.m + dm; let y = s.y; if (m < 0) { m = 11; y--; } if (m > 11) { m = 0; y++; } this.setState({ y: y, m: m }); };
+const filters = [['all','Wszystkie'],['kameralna','Kameralna'],['recital','Recital'],['operetka','Operetka'],['jazz','Jazz'],['orkiestra','Orkiestra'],['inne','Inne']].map((f) => ({ label: f[1], bg: s.filter === f[0] ? '#111111' : '#ffffff', color: s.filter === f[0] ? '#ffffff' : '#111111', pick: () => this.setState({ filter: f[0] }) }));
+const c = all[s.sel];
+const k = KINDS[c.kind];
+const isM = s.view === 'month';
+const isP = s.view === 'program';
+const isA = s.view === 'archive';
+const PROG = {
+'2026-9': {
+img: 'obrazy/ulotka-pazdziernik.jpg',
+alt: 'Ulotka: Koncerty / październik – 155 lat tradycji, 60 lat w Pałacu Szustra',
+kicker: '155 lat tradycji · 60 lat w Pałacu Szustra',
+title: 'Październik',
+lead: 'Październik w Warszawskim Towarzystwie Muzycznym upłynie pod znakiem spotkań z wybitnymi artystami i muzyką w wielu odsłonach. W programie znalazły się muzyka dawna i klasyczna, operetka, jazz, improwizacja oraz recital fortepianowy. W roku 155-lecia Warszawskiego Towarzystwa Muzycznego i 60-lecia jego obecności w Pałacu Szustra zapraszamy na kolejne koncertowe spotkania w siedzibie WTM przy ul. Morskie Oko 2.',
+paras: [
+'Miesiąc otworzy 4 października o godz. 12.00 koncert „Sztuka Preludiowania”, przygotowany z okazji 400. rocznicy urodzin Louisa Couperina. Przy klawesynie zasiądzie Władysław Kłosiewicz, jeden z najwybitniejszych polskich interpretatorów muzyki dawnej. W programie znajdą się utwory Louisa Couperina – będzie to spotkanie z subtelnym brzmieniem klawesynu i francuską sztuką XVII wieku.',
+'11 października o godz. 12.00 zapraszamy na „Mistrzowskie Interpretacje Tomasza Strahla”. Wybitnemu wiolonczeliście Tomaszowi Strahlowi towarzyszyć będą Maria Peradzyńska – flet oraz Robert Morawski – fortepian. W programie znajdą się kompozycje Ignacego Jana Paderewskiego, Fryderyka Chopina, Carla Frühlinga, Franza Schuberta i Josepha Haydna. To propozycja dla miłośników kameralistyki i wielkich dzieł europejskiej klasyki.',
+'Operetkową odsłonę października przyniesie 18 października o godz. 12.00 kolejna „ViVA(T) Operetka”. Wystąpią Ewelina Szybilska – sopran oraz Łukasz Gaj – tenor, a przy fortepianie zasiądzie Mariusz Dubrawski. Koncert poprowadzi Hanna Samson. W programie zabrzmią utwory Johanna Straussa, Franza Lehára, Eduarda di Capui, Imre Kálmána i Roberta Stolza – pełne melodii, elegancji i operetkowego temperamentu.',
+'Już następnego dnia, 19 października o godz. 18.00, odbędzie się spotkanie „Twarzą w Twarz z Markiem Stefankiewiczem”. Przy fortepianie zasiądzie Marek Stefankiewicz, a wokalnie towarzyszyć mu będzie Janusz Szrom. W wydarzeniu wezmą udział również Jagoda Opalińska oraz zaproszeni goście. Będzie to wieczór oparty na muzyce, rozmowie i bezpośrednim spotkaniu z artystami.',
+'Jazzowe brzmienia powrócą do Pałacu Szustra 22 października o godz. 19.00 w ramach cyklu „Jazz not Jazz – Salon Morskie Oko”. Wystąpi trio w składzie Kuba Stankiewicz – fortepian, Wojciech Pulcyn – kontrabas i Sebastian Frankiewicz – perkusja. Artyści zaprezentują program łączący klasykę, jazz i improwizację, przekraczając tradycyjne granice pomiędzy muzycznymi gatunkami.',
+'Październikowy cykl zakończymy 25 października o godz. 17.00 recitalem Waldemara Malickiego – „Koncert fortepianowy solo to fortepianowa rewolucja”. Jeden z najbardziej rozpoznawalnych polskich pianistów zaprosi publiczność na solowe spotkanie z fortepianem – pełne muzycznej swobody, osobowości i charakterystycznego dla artysty sposobu nawiązywania kontaktu ze słuchaczami.'
+],
+outro: 'Zapraszamy do Warszawskiego Towarzystwa Muzycznego na październikowe spotkania z muzyką! Od kunsztu dawnych mistrzów i wielkiej klasyki, przez świat operetki, aż po jazz, improwizację i fortepianową energię Waldemara Malickiego. 155 lat tradycji WTM i 60 lat w Pałacu Szustra to historia, która wciąż żyje muzyką.',
+tickets: 'Kasa biletowa czynna od pon. do pt. w godz. 12.00–19.00. Możliwość zakupu biletu 30 minut przed koncertem lub online przez platformę kicket.com. Rezerwacja telefoniczna: 509 019 934.',
+events: [['2026-10-04','12.00','Władysław Kłosiewicz – Sztuka Preludiowania'],['2026-10-11','12.00','Mistrzowskie Interpretacje Tomasza Strahla'],['2026-10-18','12.00','ViVA(T) Operetka'],['2026-10-19','18.00','Twarzą w Twarz z Markiem Stefankiewiczem'],['2026-10-22','19.00','Jazz not Jazz – Salon Morskie Oko'],['2026-10-25','17.00','Waldemar Malicki – Koncert fortepianowy solo to fortepianowa rewolucja']]
+}
+};
+const pr = PROG[s.y + '-' + s.m];
+const MGG = MG[s.m];
+const prog = pr ? { has: true, none: false, soon: false, msg: '', note: '', slots: [], img: pr.img, alt: pr.alt, kicker: pr.kicker, title: pr.title, lead: pr.lead, paras: pr.paras, outro: pr.outro, tickets: pr.tickets,
+rows: pr.events.map((e) => { const d = new Date(e[0] + 'T12:00:00'); return { date: d.getDate() + ' ' + MG[d.getMonth()].slice(0, 3).toUpperCase() + ' · ' + e[1], title: e[2], past: e[0] < TODAY, upcoming: e[0] >= TODAY }; }) }
+: showPlanned ? { has: false, none: false, soon: true, title: MN[s.m] + ' ' + s.y,
+msg: 'Zapowiada się ciekawie.',
+note: 'Program ' + MGG + ' nie został jeszcze ogłoszony. Koncerty w Pałacu Szustra odbywają się zwykle w niedziele o godz. 12.00 – poniżej planowane terminy. Wykonawców, repertuar i ulotkę opublikujemy tutaj, gdy tylko program zostanie zamknięty.',
+slots: plan.map((q) => ({ date: q.d + ' ' + MGG.slice(0, 3).toUpperCase() + ' · NIEDZIELA', time: 'godz. 12.00' })),
+img: '', alt: '', kicker: '', lead: '', paras: [], outro: '', tickets: '', rows: [] }
+: { has: false, none: true, soon: false, img: '', alt: '', kicker: '', title: '', lead: '', paras: [], outro: '', tickets: '', rows: [], msg: '', note: '', slots: [] };
+return {
+lineColor: this.props.lineColor ?? '#d9d1c0',
+isMonth: isM, isArchive: isA, isProgram: isP, showAside: !isP, prog: prog,
+vProgBg: isP ? '#111111' : '#ffffff', vProgColor: isP ? '#ffffff' : '#111111',
+setProgram: () => this.setState({ view: 'program' }),
+vMonthBg: isM ? '#111111' : '#ffffff', vMonthColor: isM ? '#ffffff' : '#111111',
+vArchBg: isA ? '#111111' : '#ffffff', vArchColor: isA ? '#ffffff' : '#111111',
+setMonth: () => this.setState({ view: 'month' }), setArchive: () => this.setState({ view: 'archive' }),
+monthLabel: MN[s.m] + ' ' + s.y, prev: go(-1), next: go(1), today: () => this.setState({ y: 2026, m: 9, sel: 9 }),
+cells: cells, monthEmpty: inMonth.length === 0,
+emptyMsg: showPlanned ? 'Program ' + MGG + ' jest jeszcze w przygotowaniu – zapowiada się ciekawie. Zaznaczone niedziele to stałe terminy koncertów o godz. 12.00.' : 'Brak koncertów w tym miesiącu dla wybranego filtra.', filters: filters, groups: groups, archiveEmpty: past.length === 0,
+countLine: isM ? 'Koncerty w tym miesiącu: ' + inMonth.length : 'Koncerty w archiwum: ' + past.length,
+sel: { title: c.title, kindLabel: k[0], dot: k[1], who: c.who, about: c.about, price: c.price, hasWho: !!c.who, hasAbout: !!c.about, hasPrice: !!c.price, isPast: c.past, isUpcoming: !c.past,
+dateLine: WD[c.d.getDay()] + ' · ' + c.d.getDate() + ' ' + MG[c.d.getMonth()] + ' ' + c.d.getFullYear() + (c.time ? ' · godz. ' + c.time : '') }
+};
+}
+}
+WTM.mount(Component, {"lineColor": "#d9d1c0"});
+</script>
+</body>
+</html>
